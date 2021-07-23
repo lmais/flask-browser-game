@@ -1,0 +1,29 @@
+<!--#Laura Maisenhelder, lmm326@drexel.edu  
+#CS530: Project-->
+
+{% extends 'base.html' %}
+{% set active = "About" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<section class="jumbotron">
+ <!--   <div class="text-center">   -->
+        <h1 class="jumbotron-heading">About </h1>
+		<br>
+		<table>
+		<tr>
+		<td><p><img src="course/img/alpaca_face.jpg" style=max-height:250px; hspace="20"></p></td>
+		<td><p>This website is a choose-your-own-adventure style game which allows kids ages 7 - 9 to help our protagonist, Adalita the Alpaca, 
+		find her way through the mountains to reconnect with her family.  Along the way she will face many challenges, and 
+		you must answer math problems to help her achieve her goal.  The map on the right side of the game screen will show you how far you have 
+		left to go.  Adalita only has ten days to meet up with her herd before they migrate to a new pasture, will she make it in time?</p>
+		</td>
+		</table>
+  <!--  </div> -->
+</section>
+
+{% endblock %}

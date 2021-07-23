@@ -1,0 +1,34 @@
+<!--#Laura Maisenhelder, lmm326@drexel.edu  
+#CS530: Project-->
+
+{% extends 'base.html' %}
+{% set active = "Links" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<section class="jumbotron">
+ <!--   <div class="text-center">  -->
+        <h1 class="jumbotron-heading">Helpful Links</h1>
+        <p>If you need to brush up on your math skills, these sites have tutorials that can help you:</p>
+	<table class="table">
+	 <tr style="font-weight:bold"><td>Site</td><td>Info</td></tr>
+	<tbody>
+		<tr>
+			<td><a href="https://www.khanacademy.org/">Khan Academy</a></td><td>Free, includes math courses for all grades</td>
+		</tr>
+		<tr>
+			<td><a href="https://www.kidsmathtv.com/">Kids Math TV </a></td><td>Requires payment, math tutorial videos</td>
+		</tr>
+		<tr>
+			<td><a href="https://www.sylvanlearning.com/">Sylvan Learning </a></td><td>Requires payment, in-person instruction</td>
+		</tr>		
+		
+	
+	</tbody>	
+</section>
+
+{% endblock %}

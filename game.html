@@ -1,0 +1,161 @@
+<!--#Laura Maisenhelder, lmm326@drexel.edu  
+#CS530: Project-->
+
+{% extends 'base.html' %}
+{% set active = "Home" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col text-center">
+        <h1 class="jumbotron-heading">Adalita the Alpaca</h1>
+		<div>
+			<button id = "begin" type="button" onclick="loadGame()">Click Here to Begin!</button>
+		</div>
+        <p id="title" class="lead text-muted"></p>
+    </div>
+</div>
+
+<div  id="game2"	class="row">           
+
+    <!-- map and progress  -->
+    <div class="col-lg-3">
+         <div id="days">  </div>
+       <img  id="map" class="img-fluid" src="/course/img/settings/lake.jpg">                 
+    </div>
+
+    <!-- story and math problem -->
+    <div class="col-lg-6">
+        <div id="story"> </div>
+		<br>
+        <div id="question"> </div>
+        <div id="math_section" class="form-group row">
+			<br>
+			<p id = "math_label"></p>
+            <input id = "math_answer" class="form-control" type="text" name="math_answer">
+            <button id = "submit" >Submit</Button>
+        </div>
+        <div id="result"> </div>
+        <div id="next" class="form-group row">
+			<p id = "story2"> </p>
+            <input id = "next_scene" class="form-control" type="text" name="next_scene">
+            <button id="submit_next" >Submit</Button>
+        </div>
+    </div>
+
+    <!-- setting image  -->
+    <div class="col-lg-3">
+        <img id="setting" class="img-fluid" src="/course/img/settings/lake.jpg">             
+    </div>
+</div>
+
+<script>
+    var days = 10;
+	var temp_path;
+	var math;
+	var days_show = 10;
+	$('#game2').hide(); 												
+
+//check answer to math question	
+	function checkAnswer(data) {
+		const scene = data.game_scene[0]; 
+		math = $('#math_answer').val();		
+			if (math == scene.correct_answer) {       
+				$('#result').text(scene.text_if_win).show();   
+				days_show = days + scene.win;
+				}
+			else {
+				$('#result').text(scene.text_if_lose).show();
+				days_show = days + scene.lose;                                      
+				}
+			$('#story2').show();
+			$('#next').show();      
+    }
+	
+//interpret scene choice	
+	function sceneChoice(data) {
+		const scene = data.game_scene[0];                                  
+		temp_path = $('#next_scene').val();                                    
+		if(temp_path == "a"){
+			path = scene.a_scene;
+			}
+		else
+			{
+			path = scene.b_scene;
+			}                               
+		updateGame(path); 
+	}
+	
+//get next game scene
+    function updateGame(path) {
+        $.get("/api/game", {
+             s: path                                                   
+        }, function (data) {    
+           updatePage(data);
+        });
+   } 
+   
+//update page to next scene
+    function updatePage(data) {
+       const scene = data.game_scene[0];
+        $('#map').prop('src', '/course/img/Maps/' + scene.map);
+		$('#title').text(scene.title);
+        $('#story').text(scene.story);
+        $('#question').text(scene.question);
+        $('#setting').prop('src', '/course/img/settings/' + scene.image);
+        $('#days').text(days + " days to go");
+        $('#next').hide();
+        $('#result').hide();
+		$('#next_scene').val('');
+		$('#math_label').text("Enter only one letter: a, b, or c:");
+		$('#math_answer').val('');
+		$('#days').text("Adalita has 10 days.  You will currently get there in: " + days_show + " days.");
+		$('#story2').text(scene.next_scene);
+		temp_path = null;
+		path = null; 
+/*		if(scene.id == "s10"){
+			$('#math_section').hide();
+			}                                                    //trying to hide text field and button when you finish but this makes updatePage stop working
+		else{
+			$('#math_section').show();
+			}
+*/		$('#game2').show();                                     
+	
+	
+//submit button for math answer
+$(document).ready(function() {
+    $('#submit').click(function() {
+      checkAnswer(data);                                   
+    });
+});	
+
+
+//submit button for next scene choice
+$(document).ready(function() {
+    $('#submit_next').click(function() {  
+		sceneChoice(data);
+	});   	
+});
+
+}       //moved end bracket of updatePage here 
+
+//begin button
+    function loadGame() {
+        $.get("/api/game", {
+            s: "s1"
+        }, function (data) {
+            console.log(data);
+            updatePage(data);
+        });
+		$('#begin').hide();
+//		$('#game').show(); 
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+/*#Laura Maisenhelder, lmm326@drexel.edu  
+#CS530: Project */
+
+body {
+    font-family: "Avenir";
+    font-size: 1rem;
+    background: #d3d796   /* #fff; */
+}
+
+header {
+    background: #6B8E23;   /* #406C39; */
+}
+
+.btn {
+    background: #D3D3D3   /* #507C49; */
+    border-color: #406C39;
+    color: #fff;
+}
+
+.btn:hover {
+    background: #A9A9A9   /*#608C59; */
+    border-color: #406C39;
+    color: #fff;
+}
+
+.navbar-expand-md .navbar-nav .nav-link {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.content {
+    padding: 2rem 1.5rem;
+}
+
+.jumbotron {
+    padding: 1.5rem;
+    background: 0;
+}
+
+.jumbotron img {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.table img{      /*trying to limit width of image in Our Bikes table, but the euro-mini image is still too big*/
+	max-width: 5000px;
+	/*height: auto;*/
+}
+
+#game {
+
+  visibility: hidden;	
+}

@@ -1,0 +1,22 @@
+sqlite3 game.db
+
+CREATE TABLE game2
+(id TEXT PRIMARY KEY,
+title TEXT,
+image TEXT,
+map TEXT,
+story TEXT,
+question TEXT,
+correct_answer TEXT, 
+lose INTEGER,
+win INTEGER,
+text_if_win TEXT,
+text_if_lose TEXT,
+next_scene TEXT,
+a_scene TEXT,
+b_scene TEXT);
+
+.separator "\t"
+.import dev/data.txt game2
+
+.mode csv
